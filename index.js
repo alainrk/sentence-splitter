@@ -23,41 +23,35 @@ async function main () {
   console.log(JSON.stringify(syntax, ' ', 2))
 
   const sentences = []
-  let currentSentence = ''
-  let isVerbMet = false 
-  let lastConjunction = ''
+
+  let tokens = []
+  let lastVerbIdx = Infinity
 
   for (const part of syntax.tokens) {
     if (part.partOfSpeech.tag === 'PUNCT') continue
     
     if (part.partOfSpeech.tag === 'VERB') {
-      isVerbMet = true
+      lastVerbIdx = tokens.length
     }
 
     if (part.partOfSpeech.tag === 'CONJ') {
-      lastConjunction = part.text.content
-
-      if (isVerbMet) {
-        if (currentSentence) {
-          sentences.push(currentSentence.trim())
+      if (tokens.length > lastVerbIdx) {
+        sentences.push(tokens.join(' '))
+        tokens = []
+        lastVerbIdx = Infinity
+      } else {
+        if (sentences.length) {
+          sentences[sentences.length - 1] += ' ' + tokens.join(' ')
+          tokens = []
         }
-        // reset
-        isVerbMet = false
-        currentSentence = ''
-        continue
       }
     }
 
-    currentSentence += ` ${part.text.content}`
-    // console.log(`${part.partOfSpeech.tag}: ${part.text.content}`);
-    // console.log('Morphology:', part.partOfSpeech);
+    tokens.push(part.text.content)
   }
-  if (currentSentence) {
-    if (isVerbMet || sentences.length === 0) {
-      sentences.push(currentSentence.trim())
-    } else {
-      sentences[sentences.length - 1] += ` ${lastConjunction}${currentSentence}`
-    }
+  
+  if (tokens.length) {
+    sentences.push(tokens.join(' '))
   }
 
   console.log(sentences)
