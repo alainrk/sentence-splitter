@@ -13,6 +13,6 @@ Some tests about text analysis feature, like split sentences on conjunctions.
 npm start "I am hungry but I am also tired and I want to skate"
 ```
 
-## Official Doc
+## Official Doc
 
 [Google Text Analysis](https://cloud.google.com/natural-language/docs/quickstart-client-libraries#client-libraries-install-nodejs)
