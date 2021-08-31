@@ -22,24 +22,42 @@ async function main () {
   const [syntax] = await client.analyzeSyntax({ document, encodingType })
   console.log(JSON.stringify(syntax, ' ', 2))
 
-  console.log('Tokens:')
   const sentences = []
   let currentSentence = ''
+  let isVerbMet = false 
+  let lastConjunction = ''
+
   for (const part of syntax.tokens) {
     if (part.partOfSpeech.tag === 'PUNCT') continue
-    if (part.partOfSpeech.tag === 'CONJ') {
-      if (currentSentence) {
-        sentences.push(currentSentence.trim())
-      }
-      currentSentence = ''
-      continue
+    
+    if (part.partOfSpeech.tag === 'VERB') {
+      isVerbMet = true
     }
+
+    if (part.partOfSpeech.tag === 'CONJ') {
+      lastConjunction = part.text.content
+
+      if (isVerbMet) {
+        if (currentSentence) {
+          sentences.push(currentSentence.trim())
+        }
+        // reset
+        isVerbMet = false
+        currentSentence = ''
+        continue
+      }
+    }
+
     currentSentence += ` ${part.text.content}`
     // console.log(`${part.partOfSpeech.tag}: ${part.text.content}`);
     // console.log('Morphology:', part.partOfSpeech);
   }
   if (currentSentence) {
-    sentences.push(currentSentence.trim())
+    if (isVerbMet || sentences.length === 0) {
+      sentences.push(currentSentence.trim())
+    } else {
+      sentences[sentences.length - 1] += ` ${lastConjunction}${currentSentence}`
+    }
   }
 
   console.log(sentences)
