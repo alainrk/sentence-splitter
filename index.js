@@ -1,5 +1,5 @@
 const language = require('@google-cloud/language')
-const config = require('./service-account-key-text-analysis.json')
+const config = require('./config/key.json')
 
 const client = new language.LanguageServiceClient({
   credentials: config 
@@ -20,7 +20,6 @@ async function main () {
   const encodingType = 'UTF8'
 
   const [syntax] = await client.analyzeSyntax({ document, encodingType })
-  // console.log(JSON.stringify(syntax.sentences, ' ', 2))
   console.log(JSON.stringify(syntax, ' ', 2))
 
   console.log('Tokens:')
