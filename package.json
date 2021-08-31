@@ -1,12 +1,12 @@
 {
   "name": "test-google-textanalysis",
   "version": "1.0.0",
-  "description": "",
+  "description": "Test on google text analysis",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
-  "author": "",
+  "author": "Alain Di Chiappari <alain.devcs@gmail.com> (https://github.com/alainrk)",
   "license": "ISC",
   "dependencies": {
     "@google-cloud/language": "^4.3.0"
