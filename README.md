@@ -11,6 +11,12 @@ Some tests about text analysis feature, like split sentences on conjunctions.
 
 ```
 npm start "I am hungry but I am also tired and I want to skate"
+>> [ 'I am hungry', 'but I am also tired', 'and I want to skate' ]
+```
+
+## Print tokenization info
+```
+DEBUG=true npm start "I am hungry but I am also tired and I want to skate"
 ```
 
 ## Official Doc

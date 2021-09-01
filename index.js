@@ -20,7 +20,9 @@ async function main () {
   const encodingType = 'UTF8'
 
   const [syntax] = await client.analyzeSyntax({ document, encodingType })
-  console.log(JSON.stringify(syntax, ' ', 2))
+  if (process.env.DEBUG) {
+    console.log(JSON.stringify(syntax, ' ', 2))
+  }
 
   const sentences = []
 
