@@ -1,4 +1,4 @@
-# Test on Google Text Analysis
+# Sentence splitter
 
 Some tests about text analysis feature, like split sentences on conjunctions.
 
