@@ -1,7 +1,7 @@
 # Sentence splitter
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://standardjs.com/)
 
-Some tests about text analysis feature, like split sentences on conjunctions.
+Best-effort sentence splitter, based on Google Text Analysis API and verb-conjuction utterance aggregation.
 
 ## Configure
 
