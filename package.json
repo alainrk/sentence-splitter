@@ -1,5 +1,5 @@
 {
-  "name": "test-google-textanalysis",
+  "name": "sentence-splitter",
   "version": "1.0.0",
   "description": "Test on google text analysis",
   "main": "index.js",
